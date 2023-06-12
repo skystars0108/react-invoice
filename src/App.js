@@ -1,5 +1,5 @@
 import React from'react';
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate, Switch} from 'react-router-dom';
 
 import PrivateRoute from './utility/PrivateRoute';
 import Home from './pages/Home';
@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/invoice' element={<Invoice />} />
+          <Route path='/invoice' element={PrivateRoute(Invoice)} />
           <Route path="/token" element={PrivateRoute(Token)}  />
           <Route path="*" element={<Navigate to ="/" />}/>
 
