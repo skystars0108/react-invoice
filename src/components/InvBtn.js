@@ -3,6 +3,7 @@ import Barcode from 'react-barcode';
 import QRCode from "react-qr-code";
 
 import {Image, Modal, Row, Col} from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
 
 import { getPortugeDate, getCurrentDate, getPortugeDigit } from '../utility/helper';
 
@@ -12,6 +13,7 @@ import '../App.css';
 
 function PixModal(props) {
     const {data} = props;
+    
     return (
       <Modal
         {...props}
@@ -138,14 +140,15 @@ function PixModal(props) {
 const InvBtn = (props) => {
     const [pixModalShow, setPixModalShow] = React.useState(false);
     const [boletoModalShow, setBoletoModalShow] = React.useState(false);
-
+    const navigate = useNavigate();
+    
     const onDialog = (type) => {
         if(type == 1)
             setPixModalShow(true);
         if(type == 2)
             setBoletoModalShow(true);
         if(type == 3)
-            window.location = '/token';
+        navigate("/token");
     }
 
     return (

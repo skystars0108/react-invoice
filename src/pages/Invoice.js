@@ -1,7 +1,7 @@
 import React, { useEffect , useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper";
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import {months} from '../utility/helper';
 import '../App.css';
@@ -31,10 +31,12 @@ const Invoice = () => {
     const [curMonth, setCurMonth] = useState('');
 
     let {state} = useLocation();
+    const navigate = useNavigate();
+
     let invInfoArr = [];
 
     useEffect(() => {
-        if(state === null) window.location = '/';
+        if(state === null) navigate("/");
         const {invInfo} = state;
         setInvoiceData(invInfo);
 
