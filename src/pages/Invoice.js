@@ -131,10 +131,7 @@ const Invoice = () => {
                         slidesPerView={5}
                         centeredSlides={true}
                         spaceBetween={0}
-                        rewind={true}
-                        pagination={{
-                            type: "fraction",
-                        }}
+                        oneWayMovement={false}
                         navigation={true}
                         modules={[Navigation]}
                         onClick={handleClick}
