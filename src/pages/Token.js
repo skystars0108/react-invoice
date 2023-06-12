@@ -17,19 +17,19 @@ const Token = () => {
     const iInfo = getLocalStorage();
 
     useEffect(() => {
-        spinner = true;
-        axios.get('https://api.fale.net.br/customer/challenge', {
-            params: {doc: iInfo.CNF}
-        })
-        .then(response => {
-            if(response.status == 'sent')
-                spinner = false;
-            spinner = false;
-        })
-        .catch(error => {
-            spinner = false;
-            toast.error('Ocorreu um erro');
-        })
+        // spinner = true;
+        // axios.get('https://api.fale.net.br/customer/challenge', {
+        //     params: {doc: iInfo.CNF}
+        // })
+        // .then(response => {
+        //     if(response.status == 'sent')
+        //         spinner = false;
+        //     spinner = false;
+        // })
+        // .catch(error => {
+        //     spinner = false;
+        //     toast.error('Ocorreu um erro');
+        // });
     },[
         
     ])
