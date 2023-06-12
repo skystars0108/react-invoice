@@ -3,7 +3,7 @@ import { Navigate, Route} from 'react-router-dom';
 
 import { getLocalStorage } from './helper';
 const PrivateRoute = (Component) => {
-    const checkAuth = getLocalStorage().CNF;console.log(checkAuth);
+    const checkAuth = getLocalStorage().CNF;
     return (
         checkAuth ? (
             <Component/>

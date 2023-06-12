@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Col, Container, Row, Button } from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { Circles } from 'react-loader-spinner'
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,6 +17,7 @@ const Token = () => {
     let spinner = false;
     const iInfo = getLocalStorage();
 
+    const navigate = useNavigate();
     useEffect(() => {
         spinner = true;
         axios.get('https://api.fale.net.br/customer/challenge', {
@@ -40,7 +42,7 @@ const Token = () => {
             clearLocalStorage();
             window.open(`https://api.fale.net.br/customer/invoice?doc=${iInfo.CNF}&invoice=${iInfo.invoice}&token=${code}`, "_blank")
 
-            window.location = '/';
+            navigate('/');
         }
         else
             toast.info('Por favor, insira.');

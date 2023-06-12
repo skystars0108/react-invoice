@@ -29,28 +29,33 @@ const Invoice = () => {
     const [curMonthInvoice, setCurMonthInvoice] = useState([]);
     const [selectedInvoice, setSelectedInvoice] = useState(null);
     const [curMonth, setCurMonth] = useState('');
+    //const [state, setState] = useState(useLocation());
+    const {state} = useLocation();
 
-    let {state} = useLocation();
     const navigate = useNavigate();
-
     let invInfoArr = [];
 
     useEffect(() => {
-        if(state === null) navigate("/");
-        const {invInfo} = state;
-        setInvoiceData(invInfo);
+        if(state) {
+            const {invInfo} = state;
+            setInvoiceData(invInfo);
 
-        invInfoArr = [];
-        //////// configure invoice data ///////
-        if(invoiceData != null) {
-            invoiceData.map(item => {
-                if(invInfoArr[item.cycle] == null) 
-                    invInfoArr[item.cycle] = [];
+            invInfoArr = [];
+            //////// configure invoice data ///////
+            if(invoiceData != null) {
+                invoiceData.map(item => {
+                    if(invInfoArr[item.cycle] == null) 
+                        invInfoArr[item.cycle] = [];
 
-                invInfoArr[item.cycle].push(item);
-            })
+                    invInfoArr[item.cycle].push(item);
+                })
+            }
         }
-    });
+        else
+            navigate('/');
+        
+    },[]);
+    
     const handleClick = (swiper) => {
         setCurTap(swiper.clickedIndex);
         var tmp = {}, seldata = null;
@@ -72,6 +77,7 @@ const Invoice = () => {
     }
     function getMonthClassOnOff(month) {
         if(invoiceData != null) {
+            invInfoArr = [];
             invoiceData.map(item => {
                 if(invInfoArr[item.cycle] == null) 
                     invInfoArr[item.cycle] = [];
@@ -90,6 +96,8 @@ const Invoice = () => {
 
         return r_result;
     }
+
+    if(state !== null) 
     return (
         <>
             <Header/>
