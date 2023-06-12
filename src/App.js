@@ -18,7 +18,7 @@ function App() {
           <Route path="/token" element={PrivateRoute(Token)}  />
           <Route path="*" element={<Navigate to ="/" />}/>
 
-          <Route path='/test' element={<Test />} />
+          <Route path='test' element={<Test />} />
         </Routes>
     </BrowserRouter>
   );
