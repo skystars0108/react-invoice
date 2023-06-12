@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/invoice' element={PrivateRoute(Invoice)} />
+          <Route path='/invoice' element={<Invoice />} />
           <Route path="/token" element={PrivateRoute(Token)}  />
           <Route path="*" element={<Navigate to ="/" />}/>
         </Routes>

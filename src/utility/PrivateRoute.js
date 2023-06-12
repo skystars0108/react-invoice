@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import { Navigate, Route} from 'react-router-dom';
+import React from 'react'
+import { Navigate} from 'react-router-dom';
 
 import { getLocalStorage } from './helper';
 const PrivateRoute = (Component) => {

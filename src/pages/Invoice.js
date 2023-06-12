@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { setLocalStorageInvoice, getPortugeDate, getPortugeDigit } from '../utility/helper';
+import { getLocalStorage, setLocalStorageInvoice, getPortugeDate, getPortugeDigit } from '../utility/helper';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import InvBtn from '../components/InvBtn';
@@ -36,7 +36,7 @@ const Invoice = () => {
     let invInfoArr = [];
 
     useEffect(() => {
-        if(state) {
+        if(state && getLocalStorage().CNF) {
             const {invInfo} = state;
             setInvoiceData(invInfo);
 
@@ -97,7 +97,7 @@ const Invoice = () => {
         return r_result;
     }
 
-    if(state !== null) 
+    if((state !== null) && (getLocalStorage().CNF)) 
     return (
         <>
             <Header/>

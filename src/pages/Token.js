@@ -47,6 +47,7 @@ const Token = () => {
         else
             toast.info('Por favor, insira.');
     }
+    if((getLocalStorage().CNF) && (getLocalStorage().invoice))
     return (
         <>
             <Header/>
