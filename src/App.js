@@ -1,5 +1,5 @@
 import React from'react';
-import {BrowserRouter, Routes, Route, Navigate, Switch} from 'react-router-dom';
+import {BrowserRouter , Routes, Route} from 'react-router-dom';
 
 import PrivateRoute from './utility/PrivateRoute';
 import Home from './pages/Home';
@@ -11,7 +11,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/invoice' element={PrivateRoute(Invoice)} />
@@ -19,7 +19,7 @@ function App() {
 
           <Route path='*' element={<PageNotFound />} />
         </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 
