@@ -40,6 +40,7 @@ const Home = () => {
                 .catch(error => {
                     setSpinner(false);
                     toast.error('Ocorreu um erro');
+                    navigate("/PageNotFound");
                 })
             
         }

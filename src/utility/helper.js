@@ -5,11 +5,14 @@ export function getPortugeDate(date_due) {
     return date_array[0] + ' de ' + months[parseInt(date_array[1]) - 1];
 }
 
-export function getPortugeMonth(date) {
+export function getPortugeMonthFromCycle(date) {
     const date_array = date.split('/');
-    return months[parseInt(date_array[1]) - 1];
+    return months[parseInt(date_array[0]) - 1];
 }
-
+export function getYearFromCycle(date) {
+    const date_array = date.split('/');
+    return parseInt(date_array[1]);
+}
 export function getCurrentDate(separator=''){
 
     let newDate = new Date()

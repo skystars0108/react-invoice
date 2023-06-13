@@ -5,7 +5,7 @@ import PrivateRoute from './utility/PrivateRoute';
 import Home from './pages/Home';
 import Invoice from './pages/Invoice';
 import Token from './pages/Token';
-import Test from './pages/Test';
+import PageNotFound from './pages/PageNotFound';
 
 import './App.css';
 
@@ -16,9 +16,8 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/invoice' element={PrivateRoute(Invoice)} />
           <Route path="/token" element={PrivateRoute(Token)}  />
-          <Route path="*" element={<Navigate to ="/" />}/>
 
-          <Route path='test' element={<Test />} />
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
     </BrowserRouter>
   );
