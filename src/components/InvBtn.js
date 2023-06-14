@@ -13,7 +13,6 @@ import '../App.css';
 
 function PixModal(props) {
     const {data} = props;
-    
     return (
       <Modal
         {...props}
@@ -141,7 +140,6 @@ const InvBtn = (props) => {
     const [pixModalShow, setPixModalShow] = React.useState(false);
     const [boletoModalShow, setBoletoModalShow] = React.useState(false);
     const navigate = useNavigate();
-    
     const onDialog = (type) => {
         if(type == 1)
             setPixModalShow(true);
@@ -150,34 +148,36 @@ const InvBtn = (props) => {
         if(type == 3)
         navigate("/token");
     }
-
-    return (
-        <>
-            <div className='inv-btn' onClick={() => onDialog(props.type)}>
-                <Image src={props.icon} className='inv-btn-icon'/>
-                <br/>
-                {props.text}
-            </div>
-            {
-                props.type != 3 ? (
-                    <>
-                        <PixModal
-                            show={pixModalShow}
-                            data = {props.data}
-                            onHide={() => setPixModalShow(false)}
-                        />
-                        <BoletoModal
-                            show={boletoModalShow}
-                            data = {props.data}
-                            onHide={() => setBoletoModalShow(false)}
-                        />
-                    </>
-                ) : (<></>)
-            }
+    if(props.data)
+        return (
+            <>
+                <div className={props.data.status === 'OPEN' ? 'inv-btn' : 'inv-btn disabledbutton'} onClick={() => onDialog(props.type)}>
+                    <Image src={props.icon} className='inv-btn-icon'/>
+                    <br/>
+                    {props.text}
+                </div>
+                {
+                    (props.type != 3) ? (
+                        <>
+                            <PixModal
+                                show={pixModalShow}
+                                data = {props.data}
+                                onHide={() => setPixModalShow(false)}
+                            />
+                            <BoletoModal
+                                show={boletoModalShow}
+                                data = {props.data}
+                                onHide={() => setBoletoModalShow(false)}
+                            />
+                        </>
+                    ) : (<></>)
+                }
+                
+            </>
             
-        </>
-        
-    )
+        )
+    else
+        return (<></>)
 }
 
 export default InvBtn

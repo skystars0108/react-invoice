@@ -79,8 +79,7 @@ const Invoice = () => {
             });
             if(seldata)
                 setLocalStorageInvoice(seldata.invoice);
-
-            
+       
             setCurMonth(months[swiper.clickedIndex]);
             setSelectedInvoice(seldata);
         }
@@ -96,7 +95,12 @@ const Invoice = () => {
             return 'dot-disable';
         return 'dot-off';
     }
+    function getOnOff(iInfo) {
 
+        if(iInfo.status === 'OPEN')
+            return 'dot-on mb-auto';
+        return 'dot-off mb-auto';
+    }
     if((state !== null) && (getLocalStorage().CNF)) 
     return (
         <>
@@ -125,7 +129,7 @@ const Invoice = () => {
                         <p className='inv-cont-text pt-2 mt-3'><b>Selecione o mês da fatura desejada</b></p>
                     </Col>
                 </Row>
-                <Row>
+                <Row className='pb-5'>
                     <Swiper
                         onSwiper={setSwiperRef}
                         slidesPerView={5}
@@ -135,7 +139,7 @@ const Invoice = () => {
                         navigation={true}
                         modules={[Navigation]}
                         onClick={handleClick}
-                        className="mySwiper, pt-3"
+                        className="mySwiper, pt-3 pb-3"
                     >
                         {
                             cycle? cycle.map((item, key) => {
@@ -148,27 +152,27 @@ const Invoice = () => {
                     </Swiper>
                 </Row>
                 {
-                    selectedInvoice ? (
-                        <Row className='pt-5 pb-5'>
+                    curMonthInvoice ? curMonthInvoice.map((item, key) => {
+                        return <Row className='' key={key}>
                             <Card className='inv-rect'>
                                 <Card.Body className='inv-card'>
                                     <Row>
                                         <Col md="4">
                                             <p className='inv-med-text mb-auto'>Fatura - {curMonth} 2023</p>
-                                            <p className='inv-lg-text mb-auto'>R$ {getPortugeDigit(selectedInvoice.amount)}</p>
-                                            <p><span className='dot-disable mb-auto'></span> Fatura em aberto</p>
-                                            <p className='inv-cont-text inv-grey-color mb-auto'>Venceu dia {getPortugeDate(selectedInvoice.date_due)}</p>
+                                            <p className='inv-lg-text mb-auto'>R$ {getPortugeDigit(item.amount)}</p>
+                                            <p><span className={getOnOff(item)}></span> Fatura em aberto</p>
+                                            <p className='inv-cont-text inv-grey-color mb-auto'>Venceu dia {getPortugeDate(item.date_due)}</p>
                                         </Col>
                                         <Col md="8">
                                             <Row>
                                                 <Col md="4">
-                                                    <InvBtn icon={pix} text="PAGAR &#10;COM PIX" type={1} data={selectedInvoice}/>
+                                                    <InvBtn icon={pix} text="PAGAR &#10;COM PIX" type={1} data={item}/>
                                                 </Col>
                                                 <Col md="4" >
-                                                    <InvBtn icon={boleto} text="PAGAR &#10;COM BOLETO" type={2} data={selectedInvoice}/>
+                                                    <InvBtn icon={boleto} text="PAGAR &#10;COM BOLETO" type={2} data={item}/>
                                                 </Col>
                                                 <Col md="4">
-                                                    <InvBtn icon={fatura} text="VISUALIZAR&#10; 2ª VIA DA&#10; FATURA" type={3}/>
+                                                    <InvBtn icon={fatura} text="VISUALIZAR&#10; 2ª VIA DA&#10; FATURA" type={3} data={item}/>
                                                 </Col>
                                             </Row>
                                         </Col>
@@ -176,7 +180,7 @@ const Invoice = () => {
                                 </Card.Body>
                             </Card>
                         </Row>
-                    ) : (
+                    }) : (
                         <>
                             <Row className='pt-5 pb-5'>
                                 <Card className='inv-rect'>
