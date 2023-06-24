@@ -14,35 +14,58 @@ import InputCode from '../components/InputCode'
 const Token = () => {
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
-    let spinner = false;
     const iInfo = getLocalStorage();
+    const [spinner, setSpinner] = useState(false);
 
     const navigate = useNavigate();
     useEffect(() => {
-        spinner = true;
-        axios.get('https://api.fale.net.br/customer/challenge', {
-            params: {doc: iInfo.CNF}
-        })
-        .then(response => {
-            if(response.status == 'sent')
-                spinner = false;
-            spinner = false;
-        })
-        .catch(error => {
-            spinner = false;
-            toast.error('Ocorreu um erro');
-        });
-    },[
-        
-    ])
+        const {state} = getLocalStorage();
+        if(state) {
+            setSpinner(true);
+            axios.get('https://api.fale.net.br/customer/challenge', {
+                params: {doc: iInfo.CNF}
+            })
+            .then(response => {
+                if(response.status == 'sent')
+                    setSpinner(false);
+                setSpinner(false);
+            })
+            .catch(error => {
+                setSpinner(true);
+                toast.error('Ocorreu um erro');
+            });
+        }
+        else {
+            navigate('/');
+        }
+    },[])
     const handleSubmit = () => {
         // call api
         if(loading)
         {
-            clearLocalStorage();
-            window.open(`https://api.fale.net.br/customer/invoice?doc=${iInfo.CNF}&invoice=${iInfo.invoice}&token=${code}`, "_blank")
-
-            navigate('/');
+            setSpinner(true);
+            axios.get('https://api.fale.net.br/customer/challenge', {
+                params: {doc: iInfo.CNF, token: code}
+            })
+            .then(response => {
+                setSpinner(false);
+                if(response.data.status === 'VALIDATED')
+                {
+                    //clearLocalStorage();
+                    window.open(`https://api.fale.net.br/customer/invoice?doc=${iInfo.CNF}&invoice=${iInfo.invoice}&token=${code}`, "_blank")
+                    navigate('/invoice');
+                }
+                else {
+                    setCode('');
+                    toast.error('Token não é validado.');
+                }
+            
+            })
+            .catch(error => {
+                setSpinner(true);
+                navigate("/PageNotFound");
+            });
+            
         }
         else
             toast.info('Por favor, insira.');
@@ -57,7 +80,7 @@ const Token = () => {
                     <Col md="8">
                         <div className='tk-text mtb-100'>
                             <p>Foi enviado um SMS para o celular (51) *****.4321 com um
-                            código, digite aqui para visualizar sua fatura em tela cheia</p>
+                            código, digite aqui para visualizar sua fatura</p>
                         </div>
                         <div>
                             <Row>

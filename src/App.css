@@ -95,19 +95,19 @@
   width: 10px;
   border-radius: 50%;
   display: inline-block;
-  border: 1px solid darkgray;
+  background-color: rgb(162,198,23);
 }
 .dot-disable {
   height: 10px;
   width: 10px;
   border-radius: 50%;
   display: inline-block;
-  border: 1px solid rgb(162,198,23);
+  border: 1px solid red;
 }
 .dot-on {
   height: 10px;
   width: 10px;
-  background-color: rgb(162,198,23);
+  background-color: red;
   border-radius: 50%;
   display: inline-block;
 }
@@ -115,7 +115,7 @@
   border-radius: 20px;
 }
 .inv-card{
-  padding: 30px 30px;
+  padding: 20px 30px;
 }
 .inv-btn {
   background-color: rgb(252, 198, 24);
@@ -145,6 +145,7 @@
 .disabledbutton {
   pointer-events: none;
   opacity: 0.4;
+  display: none;
 }
 .swiper-slide {
   text-align: center;
@@ -194,7 +195,7 @@
 }
 .code-inputs {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
 }
 .code-inputs input {
@@ -263,10 +264,14 @@
 }
 .modal-code-bk{
   background-color: whitesmoke;
+  padding: 20px 0px;
 }
 .barcode{
   width:100%;
   height:120px;
+}
+.barcode svg{
+  width: 100% !important;
 }
 .qrcode-div{
   height: "100px";
@@ -387,6 +392,13 @@
   .barcode svg{
     width:300px;
   }
+  .inv-cont-text {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+  }
+  .center-text {
+    text-align: center;
+  }
 }
 
 .card {
@@ -395,10 +407,10 @@
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #f8f9fa;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.04);
-  border-radius: .25rem;
+  border-radius: .75rem;
 }
 
 .card .card-header {

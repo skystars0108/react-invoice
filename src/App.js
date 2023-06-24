@@ -1,7 +1,6 @@
 import React from'react';
 import {BrowserRouter , Routes, Route} from 'react-router-dom';
 
-import PrivateRoute from './utility/PrivateRoute';
 import Home from './pages/Home';
 import Invoice from './pages/Invoice';
 import Token from './pages/Token';
@@ -14,8 +13,8 @@ function App() {
     <BrowserRouter >
       <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/invoice' element={PrivateRoute(Invoice)} />
-          <Route path="/token" element={PrivateRoute(Token)}  />
+          <Route path='/invoice' element={<Invoice/>} />
+          <Route path="/token" element={<Token />}  />
 
           <Route path='*' element={<PageNotFound />} />
         </Routes>

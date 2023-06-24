@@ -1,3 +1,4 @@
+import React from 'react'
 export const months = ['janeiro', 'fevereiro', 'março', 'abril' ,'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
 export function getPortugeDate(date_due) {
@@ -25,11 +26,19 @@ export function getCurrentDate(separator=''){
 
 export function getPortugeDigit(digit)
 {
-    const number = parseFloat(digit).toLocaleString("de-DE");
+    let num = parseFloat(digit);
+    let point = 0;
+    if(num * 10 % 10) point = 1;
+    if(num * 100 % 10) point = 2;
+
+    let number = num.toLocaleString("pt-BR");
+    if(point == 0) number = number + ",00";
+    if(point == 1) number = number + "0";
+
     return number;
 }
 
-export function getCNFDigit(value) {
+export function getDigit(value) {
     let c = '0123456789';
     function check(x) {
         return c.includes(x) ? true : false;
@@ -42,6 +51,8 @@ export function getLocalStorage()
     let storage = {};
     storage['CNF'] = localStorage.getItem('CNF');
     storage['invoice'] = localStorage.getItem('invoice');
+    storage['state'] = JSON.parse(localStorage.getItem('state'));
+    storage['tap'] = localStorage.getItem('tap');
 
     return storage;
 }
@@ -55,9 +66,23 @@ export function setLocalStorageInvoice(invoice)
 {
     localStorage.setItem('invoice', invoice);
 }
-
+export function setLocalStorageState(state)
+{
+    localStorage.setItem('state', JSON.stringify(state));
+}
+export function setLocalStorageCurTap(tap)
+{
+    localStorage.setItem('tap', tap);
+}
+export function clearLocalStorageCurTap()
+{
+    localStorage.removeItem('tap');
+}
 export function clearLocalStorage()
 {
     localStorage.removeItem('CNF');
     localStorage.removeItem('invoice');
+    localStorage.removeItem('state');
+    localStorage.removeItem('tap');
+    localStorage.clear();
 }

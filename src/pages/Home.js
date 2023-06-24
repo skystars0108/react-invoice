@@ -4,16 +4,16 @@ import axios from 'axios';
 import { Circles } from 'react-loader-spinner'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
-import { setLocalStorageCNF, getCNFDigit } from '../utility/helper';
+import { setLocalStorageCNF, setLocalStorageState, getDigit, getLocalStorage, clearLocalStorage } from '../utility/helper';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css';
 
 import logo from '../assets/logo.png';
 
-const Home = () => {
+const Home = (props) => {
     const [validated, setValidated] = useState(false);
     const [spinner, setSpinner] = useState(false);
     const [cpfCnpj, setcpfCnpjValue] = useState("");
@@ -21,26 +21,28 @@ const Home = () => {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-
+        
         event.preventDefault();
         event.stopPropagation();
         if (form.checkValidity() === true) {
             // call API
             setSpinner(true);
             axios.get('https://api.fale.net.br/customer/invoices', {
-                    params: {doc: getCNFDigit(cpfCnpj)}
+                    params: {doc: getDigit(cpfCnpj)}
                 })
                 .then(response => {
-                    setSpinner(false);
-                    setLocalStorageCNF(getCNFDigit(cpfCnpj));
-                    //localStorage.setItem('CNF', cnf);
+                    clearLocalStorage();
+                    setLocalStorageState(response.data);
+                    setLocalStorageCNF(getDigit(cpfCnpj));
+                    //clearLocalStorageCurTap();
+                    setSpinner(false);console.log(getLocalStorage());
+                    navigate("/invoice");
                     
-                    navigate("/invoice",{ state: { invInfo:  response.data} });
                 })
                 .catch(error => {
                     setSpinner(false);
-                    toast.error('Ocorreu um erro');
-                    navigate("/PageNotFound");
+                    toast.error('CPF/CNPJ não encontrado');
+                    setcpfCnpjValue('');
                 })
             
         }
